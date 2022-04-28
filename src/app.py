@@ -217,7 +217,7 @@ app.layout = html.Div(
                     className="pretty_container seven columns",
                 ),
                 html.Div(
-                    [dcc.Graph(id="Views_vs_VideoLength_plot")],
+                    [dcc.Graph(id="views_country_plot")],
                     className="pretty_container five columns",
                 ),
             ],
@@ -226,11 +226,11 @@ app.layout = html.Div(
         html.Div(
             [
                 html.Div(
-                    [dcc.Graph(id="views_country_plot")],
+                    [dcc.Graph(id="most_trending_videos")],
                     className="pretty_container seven columns",
                 ),
                 html.Div(
-                    [dcc.Graph(id="Views_vs_VideoLength_plot2")],
+                    [dcc.Graph(id="Views_vs_VideoLength_plot")],
                     className="pretty_container five columns",
                 ),
             ],
@@ -270,9 +270,10 @@ def display_type(selector):
     Output(component_id='category_views_plot',component_property='figure'),
     Output(component_id='days_views_plot',component_property='figure'),
 
-    Output(component_id='Views_vs_VideoLength_plot',component_property='figure'),
     Output(component_id='views_country_plot',component_property='figure'),
-    Output(component_id='Views_vs_VideoLength_plot2',component_property='figure'),
+
+    Output(component_id='most_trending_videos',component_property='figure'),
+    Output(component_id='Views_vs_VideoLength_plot',component_property='figure'),
 
 
     Input(component_id='well_statuses',component_property='value'),
@@ -282,12 +283,12 @@ def display_type(selector):
 def update_graph(categories,countries):
     category_views_plot = plotts.category_views(categories,countries)
     days_views_plot = plotts.days_views(categories,countries)
-    Views_vs_VideoLength_plot = plotts.Views_vs_VideoLength(categories,countries)
+    most_trending_videos = plotts.most_trending_videos(categories,countries)
     views_country_plot = plotts.views_country(countries)
-    Views_vs_VideoLength_plot2 = plotts.Views_vs_VideoLength(categories,countries)
+    Views_vs_VideoLength_plot = plotts.Views_vs_VideoLength(categories,countries)
 
     
-    return category_views_plot,days_views_plot,Views_vs_VideoLength_plot,views_country_plot,Views_vs_VideoLength_plot2
+    return category_views_plot,days_views_plot,views_country_plot,most_trending_videos,Views_vs_VideoLength_plot
 
 
 # @app.callback(
