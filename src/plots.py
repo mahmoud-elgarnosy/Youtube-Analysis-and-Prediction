@@ -3,11 +3,14 @@ import pandas as pd
 import plotly.express as px
 import numpy as np
 import plotly.graph_objects as go
+from numerize import numerize
+
 
 
 class plots:
     def __init__(self) -> None:
         self.df = pd.read_csv('../data/processed/df_duration_prepared.csv',index_col=0)
+        self.df2 = pd.read_csv('../data/external/final_data/final_data.csv',index_col=0)
         self.df['publish_time'] = self.df.publish_time.astype('datetime64[ns]')
         self.df['trending_date'] = self.df.trending_date.astype('datetime64[ns]')
 
@@ -82,7 +85,7 @@ class plots:
 
         # print(days, puplished_day_views_norm)
 
-        fig = px.bar(df,y = days.index,x = days,color_continuous_scale='algae',
+        fig = px.bar(df,y = days.index,x = days,color_continuous_scale='PuBu',
                 orientation='h',color = puplished_day_views_norm,labels= {'x': 'NO. Uploaded Videos','y':'','color':'views'})
 
         fig.update_layout(
@@ -167,9 +170,8 @@ class plots:
 
 
     def most_trending_videos(self,categories,countries):
-        df2 = pd.read_csv('../data/external/final_data/final_data.csv',index_col=0)
-        df2.drop(df2[df2.video_id == '#NAME?'].index,inplace=True)
-        df = df2[(df2.category_title.isin(categories)) &(df2.Country.isin(countries))]
+        self.df2.drop(self.df2[self.df2.video_id == '#NAME?'].index,inplace=True)
+        df = self.df2[(self.df2.category_title.isin(categories)) &(self.df2.Country.isin(countries))]
         most_trending_videos_id = list(df.video_id.value_counts()[:5].index)
         most_trending_videos_count = list(df.video_id.value_counts()[:5].values)
         most_trending_videos_data = df[df.video_id.isin(most_trending_videos_id)]
@@ -235,6 +237,16 @@ class plots:
         fig.update_traces(textfont_size = 20)
         
         return fig
+
+
+    def update_text(self,categories,countries):
+        df = self.df[(self.df.category_title.isin(categories)) &(self.df.Country.isin(countries))]
+
+        videos = numerize.numerize(df.video_id.count().item(),3)
+        views  = numerize.numerize(df.views.sum().item(),3)
+        likes  = numerize.numerize(df.likes.sum().item(),3)
+        dislikes = numerize.numerize(df.dislikes.sum().item(),3)
+        return videos,views,likes,dislikes
 
 
 

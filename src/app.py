@@ -108,7 +108,7 @@ app.layout = html.Div(
                     [
 
                         html.H2("Youtube Trending Statistics", className="app__header__title",style = {"text-align": "center"}),
-                        html.P(
+                        html.H6(
                             "This app Summarize our finding in 2017-2018 Youtube Trending in several Countries",
                             className="app__header__title--grey",
                         ),
@@ -175,25 +175,35 @@ app.layout = html.Div(
                         html.Div(
                             [
                                 html.Div(
-                                    [html.H6(id="well_text"), html.P("No. of Wells")],
+                                    [html.H6(id="Videostext"), html.P("No. of Videos")],
                                     id="wells",
-                                    className="mini_container",
+                                    className="control__panal",
                                 ),
                                 html.Div(
-                                    [html.H6(id="gasText"), html.P("Gas")],
+                                    [html.H6(id="ViewsText"), html.P("No. of Views")],
                                     id="gas",
-                                    className="mini_container",
+                                    className="control__panal",
                                 ),
                                 html.Div(
-                                    [html.H6(id="oilText"), html.P("Oil")],
+                                    [html.H6(id="LikesText"), html.P("No. of Likes")],
                                     id="oil",
-                                    className="mini_container",
+                                    className="control__panal",
                                 ),
                                 html.Div(
-                                    [html.H6(id="waterText"), html.P("Water")],
+                                    [html.H6(id="DislikesText"), html.P("No. of Dislikes")],
                                     id="water",
-                                    className="mini_container",
+                                    className="control__panal",
                                 ),
+                                # html.Div(
+                                #     [html.H6(id="well_text2"), html.P("No. of Comments")],
+                                #     id="wells2",
+                                #     className="mini_container",
+                                # ),
+                                # html.Div(
+                                #     [html.H6(id="waterText3"), html.P("Water")],
+                                #     id="water3",
+                                #     className="mini_container",
+                                # ),
                             ],
                             id="info-container",
                             className="row container-display",
@@ -291,29 +301,20 @@ def update_graph(categories,countries):
     return category_views_plot,days_views_plot,views_country_plot,most_trending_videos,Views_vs_VideoLength_plot
 
 
-# @app.callback(
-#     # Output(component_id='category_views_plot',component_property='figure'),
-#     # Output(component_id='days_views_plot',component_property='figure'),
-
-#     # Output(component_id='Views_vs_VideoLength_plot',component_property='figure'),
-#     Output(component_id='views_country_plot',component_property='figure'),
-#     # Output(component_id='Views_vs_VideoLength_plot2',component_property='figure'),
-
-
-#     # Input(component_id='well_statuses',component_property='value'),
-#     Input(component_id='well_types',component_property='value'),
-#     Input(component_id='my_slider',component_property='value'),
-
-
-# )
-def update_graph2(countries,categorie):
-
-    print([category_names[categorie]])
+@app.callback(
     
-    views_country_plot = plotts.views_country(countries,[category_names[categorie]])
+    Output("Videostext", "children"),
+    Output("ViewsText", "children"),
+    Output("LikesText", "children"),
+    Output("DislikesText", "children"),
 
     
-    return views_country_plot
+    Input(component_id='well_statuses',component_property='value'),
+    Input(component_id='well_types',component_property='value'),
+)
+def update_text(categories,countries):
+    videos, views, likes, dislikes = plotts.update_text(categories,countries) 
+    return str(videos), str(views), str(likes), str(dislikes)
 
 # my_slider
 
