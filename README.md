@@ -1,57 +1,50 @@
 Youtube Analysis and Prediction 
 ==============================
 
- and Categorical Analysis By using Trending Youtube video statistics
+ Youtube Categorical Analysis By using Trending Youtube video statistics for several countries
 
-Project Organization
+ Originally  we used  [this dataset](https://www.kaggle.com/datasnaek/youtube-new) on Kaggle, which has about 6 months worth of trending YouTube videos on it. This dataset has the most relevant information from videos that are currently trending on YouTube in a specified set of countries[Canda, USA, France, Japan, Korea, Mixico, Russia, Denemark ].
+
+ But this dataset also don't have the mose important info __in our opinion__ the length of each video so have scrapping this info from youtube by using video id
+
+Our Steps
 ------------
+1. Mapping  Category_id with Category title for each conuntry , Because This data also includes a category_id field, which varies between regions. To retrieve the categories for a specific video, find it in the associated JSON. One such file is included for each of the five regions in the dataset. 
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+2. Then we merging all Countries datasets in one dataset
+
+3. Randomly we choosen nearly __10K__ videos to scrappe thier lenght 
+
+4. Our final step we have done some Exploratroy Data Analysis 
 
 
+How to run this app
+------------
+1. First, clone this repository and open a terminal inside the root folder.
+
+2. Create and activate a new virtual environment (recommended) by running the following:
+```
+python3 -m venv myvenv
+source myvenv/bin/activate
+```
+
+3. Install requirements
+```
+pip install -r requirements.txt
+```
+
+4. Change directory to src folder
+
+```
+cd src/
+```
+
+5. Run the app
+```
+python app.py
+
+```
+
+6. Open a browser at http://127.0.0.1:8050
 --------
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
