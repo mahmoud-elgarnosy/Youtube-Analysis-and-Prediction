@@ -9,6 +9,7 @@ from numerize import numerize
 
 class plots:
     def __init__(self) -> None:
+
         self.df = pd.read_csv('../data/processed/df_duration_prepared.csv',index_col=0)
         self.df2 = pd.read_csv('../data/external/final_data/final_data.csv',index_col=0)
         self.df['publish_time'] = self.df.publish_time.astype('datetime64[ns]')
@@ -23,17 +24,17 @@ class plots:
 
 
     def category_views(self,categories,countries):
+        
         df = self.df[(self.df.category_title.isin(categories)) &(self.df.Country.isin(countries))]
-        # cat_count = int(df.category_title.value_counts().sum())
-        # print(cat_count)
         cat = df.category_title.unique()
         cat_views = df.groupby('category_title')['views'].mean()[cat].values
         cat_count =df.category_title.value_counts()[cat]
+
+
         fig = px.scatter(df,'trending_date','views',log_y=True,size='duration_in_minutes',
                          size_max= 50,color = 'category_title',facet_col='category_title',labels = {"trending_date":''},
                         facet_col_spacing=.007,color_discrete_sequence=px.colors.qualitative.Dark24)
         for i in range (len(cat_views)):
-        #     print(cat_views[i])
             fig.add_hline(cat_views[i],col=i+1,line_dash = 'dot')
             fig.add_annotation(xref='x domain',
                                yref='y domain',
@@ -51,20 +52,18 @@ class plots:
         font=dict(
                                             family="sans serif",
                                             size=abs(- (len(df.category_title.unique())/-.99) - 9) * 2.5,
-                                            # color=px.colors.qualitative.Dark24[i]
             )))
 
-        # fig.update_traces(textposition='top center')
 
         fig.update_layout(
             title_text='Categories Views & The Length Of Each Video',title_x=0.5,showlegend = False,
              yaxis = dict(
-                        tickfont = {'size' : 15},
-                        title_font_size = 20),
+                        tickfont = {'size' : 25},
+                        title_font_size = 25),
             xaxis = dict(
-                        tickfont = {'size' : 15},
-                        title_font_size = 20),
-             title_font_size = 25)
+                        tickfont = {'size' : 20},
+                        title_font_size = 25),
+             title_font_size = 30)
         
         fig.update_layout({
             'plot_bgcolor':'rgba(0, 0, 0, 0)',
@@ -77,13 +76,11 @@ class plots:
 
 
     def days_views(self,categories,countries):
-        # print(countries)
         df = self.df[(self.df.category_title.isin(categories)) &(self.df.Country.isin(countries))]
 
         days = df.puplished_day.value_counts().sort_values()
         puplished_day_views_norm = df.groupby('puplished_day')['views'].sum()[days.index] / days
 
-        # print(days, puplished_day_views_norm)
 
         fig = px.bar(df,y = days.index,x = days,color_continuous_scale='PuBu',
                 orientation='h',color = puplished_day_views_norm,labels= {'x': 'NO. Uploaded Videos','y':'','color':'views'})
@@ -91,12 +88,12 @@ class plots:
         fig.update_layout(
             title_text='Most viewed days & Summtion of Views of each day',title_x=0.5,
              yaxis = dict(
-                        tickfont = {'size' : 15},
-                        title_font_size = 20),
+                        tickfont = {'size' : 25},
+                        title_font_size = 25),
             xaxis = dict(
-                        tickfont = {'size' : 15},
-                        title_font_size = 20),
-             title_font_size = 25)
+                        tickfont = {'size' : 20},
+                        title_font_size = 25),
+             title_font_size = 30)
         fig.update_layout({
             'plot_bgcolor':'rgba(0, 0, 0, 0)',
             'paper_bgcolor':'rgba(0, 0, 0, 0)',
@@ -122,12 +119,12 @@ class plots:
         fig.update_layout(
         title_text='Countries Views on each Category' ,title_x=0.5,
           yaxis = dict(
-                        tickfont = {'size' : 15},
-                        title_font_size = 20),
-        xaxis = dict(
-                        tickfont = {'size' : 15},
-                        title_font_size = 20),
-        title_font_size = 25)
+                        tickfont = {'size' : 25},
+                        title_font_size = 25),
+            xaxis = dict(
+                        tickfont = {'size' : 20},
+                        title_font_size = 25),
+             title_font_size = 30)
         fig.update_layout({
             'plot_bgcolor':'rgba(0, 0, 0, 0)',
             'paper_bgcolor':'rgba(0, 0, 0, 0)',
@@ -153,14 +150,13 @@ class plots:
 
         fig.update_layout(title_text = 'Views vs Videos Duration', title_x = .5,
             yaxis = dict(
-                        tickfont = {'size' : 15},
-                        title_font_size = 20),
+                        tickfont = {'size' : 25},
+                        title_font_size = 25),
             xaxis = dict(
-                        tickfont = {'size' : 15},
-                        title_font_size = 20),
-            title_font_size = 25)
-        fig.update_traces(textfont_size = 20)
-        # views_average
+                        tickfont = {'size' : 20},
+                        title_font_size = 25),
+             title_font_size = 30)
+        fig.update_traces(textfont_size = 25)
         fig.update_layout({
             'plot_bgcolor':'rgba(0, 0, 0, 0)',
             'paper_bgcolor':'rgba(0, 0, 0, 0)',
@@ -221,10 +217,10 @@ class plots:
                 tickmode = 'array',
                 tickvals = [1, 2, 3, 4, 5],
                 ticktext = most_trending_videos_count,
-                tickfont = {'size' : 15},
-                title_font_size = 20
-            ),title_font_size = 25
-            ,xaxis = dict(tickfont = {'size' : 15},title_font_size = 20 ))
+                tickfont = {'size' : 20},
+                title_font_size = 25
+            ),title_font_size = 30
+            ,xaxis = dict(tickfont = {'size' : 20},title_font_size = 25 ))
 
         fig.update_layout(legend = dict(font = dict(family = "Courier", size = 15, color = "black")),
                   legend_title = dict(font = dict(family = "Courier", size = 30, color = "blue")))
