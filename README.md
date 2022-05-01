@@ -46,5 +46,14 @@ python app.py
 ```
 
 6. Open a browser at http://127.0.0.1:8050
+
+
+7. Press F11 to enter the full mode and enjoys using the app 
+
+
+
+<img src = './src/assets/dash.png'>
 --------
+
+
 
