@@ -51,13 +51,13 @@ app.layout = html.Div(
                 html.Div(
                     [
 
-                        html.H1("Youtube Trending Statistics", className="app__header__title",style = {"text-align": "center"}),
-                        html.H4(
+                        html.H2("Youtube Trending Statistics", className="app__header__title",style = {"text-align": "center"}),
+                        html.H5(
                             "This app Summarize our finding in 2017-2018 Youtube Trending in several Countries",
                             className="app__header__title--grey",
                         ),
 
-                        html.H2(
+                        html.H3(
                             "Control Board",
                             className="control_label",
                             style = {"text-align": "center"}

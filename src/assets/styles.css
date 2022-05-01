@@ -3,7 +3,9 @@
   margin-right: 3.5%;
 }
 
-
+#my{
+  zoom: 67%;
+  }
 
 html {
   overflow: scroll;
